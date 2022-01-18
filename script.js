@@ -12,9 +12,10 @@ class Calculator {
 
     }
 
-    delete() {
+    // delete() {
+    //     this.currentOperand = this.currentOperand.toString().slice(0, -1)
 
-    }
+    // }
 
     appendNumber(number) {
         if (number === '.' && this.currentOperand.includes('.')) return
@@ -25,7 +26,7 @@ class Calculator {
     
     chooseOperation(operation) {
         if(this.currentOperand === '') return
-        if (previousOperandTextElement !== '') {
+        if (this.previousOperand !== '') {
             this.compute()
         }
         this.operation = operation
@@ -61,23 +62,22 @@ class Calculator {
 
     }
     updateDisplay() {
-        this.currentOperand.innerText = this.currentOperand
-        this.previousOperand.innerText = this.previousOperand
+        this.currentOperandTextElement.innerText = this.currentOperand
+        this.previousOperandTextElement.innerText = this.previousOperand
 
     }
 }
 
+const numberButtons = document.querySelectorAll('[data-number]')
+const operationButtons = document.querySelectorAll('[data-operation]')
+const equalButton = document.querySelector('[data-equals]')
+const deleteButton = document.querySelector('[data-delete]')
+const allClearButton = document.querySelector('[data-all-clear]')
+const previousOperandTextElement = document.querySelector('[data-previous-operand]')
+const currentOperandTextElement = document.querySelector('[data-current-operand]')
 
-const numberButtons = document.querySelectorAll(["data-number"]);
-const operationButtons = document.querySelectorAll(["data-operation"]);
-const equalButton = document.querySelector(['data-equals']);
-const deleteButton = document.querySelector(['data-delete']);
-const allClearButton = document.querySelector(['data-all-clear']);
-const previousOperandTextElement = document.querySelector(['data-previous-operand']);
-const currentOperandTextElement = document.querySelector(['data-current-operand']);
 
-
-const calculator = new Calculator (previousOperandTextElement, currentOperandTextElement)
+const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
 
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
