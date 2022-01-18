@@ -22,9 +22,15 @@ class Calculator {
                   
         }
 
-    }
-
-    chooseOperation() {
+    
+    chooseOperation(operation) {
+        if(this.currentOperand === '') return
+        if (previousOperandTextElement !== '') {
+            this.compute()
+        }
+        this.operation = operation
+        this.previousOperand = this.currentOperand
+        this.currentOperand = ''
 
     }
 
@@ -32,6 +38,8 @@ class Calculator {
 
     }
     updateDisplay() {
+        this.currentOperand.innerText = this.currentOperand
+        this.previousOperand.innerText = this.previousOperand
 
     }
 }
@@ -51,6 +59,13 @@ const calculator = new Calculator (previousOperandTextElement, currentOperandTex
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
         calculator.appendNumber(button.innerText)
+        calculator.updateDisplay()
+    })
+})
+
+operationButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        calculator.chooseOperation(button.innerText)
         calculator.updateDisplay()
     })
 })
